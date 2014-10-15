@@ -75,7 +75,8 @@ Omise.createToken("card", {
   "name": card.holder_name.value,
   "number": card.number.value,
   "expiration_month": card.expiration_month.value,
-  "expiration_year": card.expiration_year.value
+  "expiration_year": card.expiration_year.value,
+  "security_code": card.security_code.value
 }, function (statusCode, response) {
   if (response.object == "token") {
     // then send the token (response.id) to your server
