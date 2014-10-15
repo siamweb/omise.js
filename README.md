@@ -20,7 +20,7 @@ That's it. You're good to send card data securely to our servers.
 
 ## API
 
-### `setPublicKey(key)`
+### setPublicKey(key)
 
 Setup your public key to authenticate against Omise API.
 
@@ -28,7 +28,7 @@ Setup your public key to authenticate against Omise API.
 
 `key` (required) - key is the public keys that you can find in your [dashboard](https://dashboard.omise.co) once you're signed in.
 
-### `createToken(type, object, callback)`
+### createToken(type, object, callback)
 
 #### Arguments
 
@@ -87,3 +87,7 @@ Omise.createToken("card", {
   };
 });
 ```
+
+## How about validations?
+
+Omise.js doesn't validate credit card data before sending them to the API. But if the card isn't valid the API will send a message in the response containing the errors. If you need client side validation you can use something like the [jQuery Credit Card Validator](http://jquerycreditcardvalidator.com) library by [PawelDecowski](https://github.com/PawelDecowski).
