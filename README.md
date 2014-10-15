@@ -10,7 +10,7 @@ Insert the script into your page:
 
 Then set your public:
 
-```html
+```js
 Omise.setPublicKey("pkey_test_4xpip92iqmehclz4a4d");
 ```
 
