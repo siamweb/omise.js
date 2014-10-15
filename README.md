@@ -1,3 +1,3 @@
 # Omise.js
 
-   https://cdn.omise.co/omise.js
+    https://cdn.omise.co/omise.js
