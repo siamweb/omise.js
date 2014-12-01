@@ -39,10 +39,9 @@
       "data": data,
       "beforeSend": function (xhr) {
         xhr.setRequestHeader("Authorization", Omise.authorizationHeader);
-      },
-      "complete": function (xhr) {
-        handler(xhr.status, xhr.responseJSON);
       }
+    }).always(function (data, textStatus, xhr) {
+      handler(xhr.status, data);
     });
   };
 
