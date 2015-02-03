@@ -33,6 +33,7 @@
   Omise.createToken = function (as, attributes, handler) {
     var data = {};
     data[as] = attributes;
+    $.support.cors = true;
     $.ajax(Omise.url("/tokens"), {
       "type": "POST",
       "dataType": "json",
