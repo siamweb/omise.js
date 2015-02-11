@@ -6,20 +6,21 @@
   // private
 
   Omise._config = {};
-
-  Omise._config.defaultHost = "vault.omise.co";
-
-  Omise._config.protocol = "https://";
-
-  Omise._config.provider = Omise._config.protocol +
-    Omise._config.defaultHost +
-    "/provider";
+  Omise._config.vaultUrl = "https://vault.omise.co";
 
   Omise._xdm = easyXDM.noConflict('OMISE')
+  Omise._rpc = false;
 
-  Omise._rpc = new Omise._xdm.Rpc({remote: Omise._config.provider}, {
-    remote: {createToken: {}}
-  });
+  Omise._createRpc = function(){
+    if (Omise._rpc) {
+      return Omise._rpc;
+    } else {
+      Omise._rpc = new Omise._xdm.Rpc({
+        remote: Omise._config.vaultUrl + "/provider"
+      }, {remote: {createToken: {}}});
+      return Omise._rpc;
+    }
+  };
 
   // public
 
@@ -31,7 +32,7 @@
   Omise.createToken = function(as, attributes, handler) {
     var data = {};
     data[as] = attributes;
-    Omise._rpc.createToken(Omise.publicKey, data, function(response) {
+    Omise._createRpc().createToken(Omise.publicKey, data, function(response) {
       handler(response.status, response.data);
     }, function(){ /* noop */ });
   };
