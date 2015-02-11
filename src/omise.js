@@ -7,16 +7,19 @@
 
   Omise._config = {};
   Omise._config.vaultUrl = "https://vault.omise.co";
+  Omise._config.assetUrl = window.location.protocol + "//" + window.location.host;
 
-  Omise._xdm = easyXDM.noConflict('OMISE')
   Omise._rpc = false;
+  Omise.easyXDM = easyXDM.noConflict('Omise');
+  Omise.easyXDM.DomHelper.requiresJSON(Omise._config.assetUrl + "/json2.js");
 
   Omise._createRpc = function(){
     if (Omise._rpc) {
       return Omise._rpc;
     } else {
-      Omise._rpc = new Omise._xdm.Rpc({
-        remote: Omise._config.vaultUrl + "/provider"
+      Omise._rpc = new Omise.easyXDM.Rpc({
+        remote: Omise._config.vaultUrl + "/provider",
+        swf: Omise._config.assetUrl + "/easyxdm.swf"
       }, {remote: {createToken: {}}});
       return Omise._rpc;
     }

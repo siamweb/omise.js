@@ -1,7 +1,11 @@
 require "bundler/setup"
+require "fileutils"
 
 task :compile do
   require "uglifier"
+
+  FileUtils.copy("vendor/easyxdm.swf", "dist/easyxdm.swf");
+  FileUtils.copy("vendor/json2.js", "dist/json2.js");
 
   File.open("dist/omise.js", "w") do |file|
     file.puts File.read("vendor/easyXDM.js")
