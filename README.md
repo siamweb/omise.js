@@ -16,7 +16,25 @@ Omise.setPublicKey("pkey_test_4xpip92iqmehclz4a4d");
 
 That's it. You're good to send card data securely to our servers.
 
-*Note that Omise.js requires jQuery.*
+## Browser compatibility
+
+Omise.js relies on the excellent [easyXDM](https://github.com/oyvindkinsey/easyXDM) library for communication with the API. The following browsers are supported:
+
+* Internet Explorer 8 and above.
+* Opera 9 and above.
+* Firefox 1.0 and above.
+* Safari 4 and above.
+* Chrome 2 and above.
+
+With the following mobile environment:
+
+* iOS 4 and above.
+* Android 2.2 and above.
+* Windows Phone 8 and above.
+
+With the following browsers operate in compatibility mode:
+
+* Internet Explorer 6-7 if Flash is installed on user machine.
 
 ## API
 
@@ -24,19 +42,19 @@ That's it. You're good to send card data securely to our servers.
 
 Setup your public key to authenticate against Omise API.
 
-#### Arguments
+**Arguments:**
 
-`key` (required) - key is the public keys that you can find in your [dashboard](https://dashboard.omise.co) once you're signed in.
+* `key` (required) - key is the public keys that you can find in your [dashboard](https://dashboard.omise.co) once you're signed in.
 
 ### createToken(type, object, callback)
 
-#### Arguments
+Create a token with the API. This token should be used in place of the card number when communicating with Omise API.
 
-`type` (required) - type of token you want to create. For now this value must be `card`.
+**Arguments:**
 
-`object` (required) - a javascript object containing the 5 values required for a card:  `name`, `number`, `expiration_month`, `expiration_year`, `security_code`.
-
-`callback`: (required) - a callback that will be triggered whenever the request with omise server completes (for both error and success). Two arguments will be passed back into the callback. The HTTP statusCode, like `200` for success or `400` for bad request, etc... The second argument is the response from the Omise API. Example:
+* `type` (required) - type of token you want to create. For now this value must be `card`.
+* `object` (required) - a javascript object containing the 5 values required for a card:  `name`, `number`, `expiration_month`, `expiration_year`, `security_code`.
+* `callback`: (required) - a callback that will be triggered whenever the request with omise server completes (for both error and success). Two arguments will be passed back into the callback. The HTTP statusCode, like `200` for success or `400` for bad request, etc... The second argument is the response from the Omise API. Example:
 
 ```js
 {
@@ -70,13 +88,12 @@ Setup your public key to authenticate against Omise API.
 Here's an example of how you could send the card data to Omise API:
 
 ```js
-var card = documents.forms.card;
 Omise.createToken("card", {
-  "name": card.holder_name.value,
-  "number": card.number.value,
-  "expiration_month": card.expiration_month.value,
-  "expiration_year": card.expiration_year.value,
-  "security_code": card.security_code.value
+  "name": document.getElementById("name").value,
+  "number": document.getElementById("number").value,
+  "expiration_month": document.getElementById("expiration_month").value,
+  "expiration_year": document.getElementById("expiration_year").value,
+  "security_code": document.getElementById("security_code").value
 }, function (statusCode, response) {
   if (response.object == "token") {
     // then send the token (response.id) to your server
@@ -87,6 +104,8 @@ Omise.createToken("card", {
   };
 });
 ```
+
+Please note that it is important to leave `name` attribute in form `input`s to prevent the credit card data to be sent to your server. For more completed example, please refer to examples/index.html.
 
 ## How about validations?
 
