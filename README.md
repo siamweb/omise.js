@@ -35,6 +35,7 @@ With the following mobile environment:
 With the following browsers operate in compatibility mode:
 
 * Internet Explorer 6-7 if Flash is installed on user machine.
+* Internet Explorer 6 requires TLS 1.0 to be enabled in the browser settings.
 
 ## API
 
