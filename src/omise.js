@@ -7,7 +7,7 @@
 
   Omise._config = {};
   Omise._config.vaultUrl = "https://vault.omise.co";
-  Omise._config.assetUrl = window.location.protocol + "//" + window.location.host;
+  Omise._config.assetUrl = "https://cdn.omise.co";
 
   Omise._rpc = false;
   Omise.easyXDM = easyXDM.noConflict('Omise');
