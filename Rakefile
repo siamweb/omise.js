@@ -4,6 +4,7 @@ require "fileutils"
 task :compile do
   require "uglifier"
 
+  FileUtils.mkdir_p("dist")
   FileUtils.copy("vendor/easyxdm.swf", "dist/easyxdm.swf");
   FileUtils.copy("vendor/json2.js", "dist/json2.js");
 
