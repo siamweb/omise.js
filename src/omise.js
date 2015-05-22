@@ -13,7 +13,7 @@
   Omise.easyXDM = easyXDM.noConflict('Omise');
   Omise.easyXDM.DomHelper.requiresJSON(Omise._config.assetUrl + "/json2.js");
 
-  Omise._createRpc = function(callback){
+  Omise._createRpc = function(callback) {
     if (Omise._rpc) {
       return Omise._rpc;
     } else {
@@ -28,8 +28,8 @@
       Omise._rpc = new Omise.easyXDM.Rpc({
         remote: Omise._config.vaultUrl + "/provider",
         swf: Omise._config.assetUrl + "/easyxdm.swf",
-        onReady: function (){
-          clearTimeout(tm) 
+        onReady: function() {
+          clearTimeout(tm);
         }
       }, {remote: {createToken: {}}});
       return Omise._rpc;
@@ -47,7 +47,7 @@
     var data = {};
     data[as] = attributes;
     
-    Omise._createRpc(function(){
+    Omise._createRpc(function() {
       handler(0, { 
         code: "rpc_error", 
         message: "unable to connect to provider after timeout" 
