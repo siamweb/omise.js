@@ -8,6 +8,13 @@ Insert the script into your page:
 <script src="https://cdn.omise.co/omise.js"></script>
 ```
 
+or GZIP version:
+
+```html
+<script src="https://cdn.omise.co/omise.js.gz"></script>
+```
+
+
 Then set your public:
 
 ```js
