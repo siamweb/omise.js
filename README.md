@@ -17,7 +17,7 @@ Secondary CDN (Japan)
 For uncompressed version, remove .gz extension.
 
 
-#### Then set your public in a `script` tag
+#### Then set your public key in a `script` tag
 
 ```js
 Omise.setPublicKey("pkey_test_4xpip92iqmehclz4a4d");
