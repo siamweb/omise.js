@@ -2,26 +2,28 @@
 
 ## Setup
 
-Insert the script into your page:
+Insert Omise.js script into your page, you can select from our two CDNs
 
-```html
-<script src="https://cdn.omise.co/omise.js"></script>
-```
-
-or GZIP version:
-
+Primary CDN (Singapore)
 ```html
 <script src="https://cdn.omise.co/omise.js.gz"></script>
 ```
 
+Secondary CDN (Japan)
+```html
+<script src="https://cdn2.omise.co/omise.js.gz"></script>
+```
 
-Then set your public:
+For uncompressed version, remove .gz extension.
+
+
+#### Then set your public in a `script` tag
 
 ```js
 Omise.setPublicKey("pkey_test_4xpip92iqmehclz4a4d");
 ```
 
-That's it. You're good to send card data securely to our servers.
+That's it. You're good to send card data securely to Omise servers.
 
 ## Browser compatibility
 
@@ -48,7 +50,7 @@ With the following browsers operate in compatibility mode:
 
 ### setPublicKey(key)
 
-Setup your public key to authenticate against Omise API.
+Setup your public key to authenticate with Omise API.
 
 **Arguments:**
 
@@ -62,38 +64,13 @@ Create a token with the API. This token should be used in place of the card numb
 
 * `type` (required) - type of token you want to create. For now this value must be `card`.
 * `object` (required) - a javascript object containing the 5 values required for a card:  `name`, `number`, `expiration_month`, `expiration_year`, `security_code`.
-* `callback`: (required) - a callback that will be triggered whenever the request with omise server completes (for both error and success). Two arguments will be passed back into the callback. The HTTP statusCode, like `200` for success or `400` for bad request, etc... The second argument is the response from the Omise API. Example:
+* `callback`: (required) - a callback that will be triggered whenever the request with omise server completes (for both error and success). Two arguments will be passed back into the callback. The HTTP statusCode, like `200` for success or `400` for bad request. The second argument is the response from the Omise API.
 
-```js
-{
-  "object": "token"
-  "id": "tokn_test_4xqa5ym431a9v1v5vti"
-  "livemode": false
-  "location": "/tokens/tokn_test_4xqa5ym431a9v1v5vti"
-  "used": false
-  "card": {
-    "object": "card"
-    "id": "card_test_4xqa5ym3ashqox19d7u"
-    "brand": "Visa"
-    "city": null
-    "country": "us"
-    "created": "2014-10-15T08:46:31Z"
-    "expiration_month": 10
-    "expiration_year": 2028
-    "financing": ""
-    "fingerprint": "gfEWEbLqXu1tRjerGyS1H0S0uitlEAIwdFFBTTokIOw="
-    "last_digits": "4242"
-    "livemode": false
-    "name": "Robin"
-    "postal_code": null
-    "created": "2014-10-15T08:46:31Z"
-  }
-}
-```
+### Example
 
-## Example
-
-Here's an example of how you could send the card data to Omise API:
+The following example shows how you to send the card data to Omise API and get a token back.  
+If card authorization passed, `response.card.security_code_check` will be `true`. If it's `false` you should ask used to check the card details.  
+The Token is in `response.id`, send this token to your backend for creating a charge using your secret key.
 
 ```js
 Omise.createToken("card", {
@@ -104,13 +81,50 @@ Omise.createToken("card", {
   "security_code": document.getElementById("security_code").value
 }, function (statusCode, response) {
   if (response.object == "token") {
-    // then send the token (response.id) to your server
-    // ...
+    if (typeof response.card != 'undefined' && response.card.security_code_check) {
+      // Card authorized
+      // Send the token (response.id) to your server for creating charge
+      // ...
+    else {
+      // Card authorization failed, display an error message for user
+      alert("Card authorization failure. Please check card information.")
+    });
   } else {
-    // an error occured, display error message
+    // some error occured
     alert(response.code+": "+response.message);
   };
 });
+```
+
+### Response Object:
+
+```js
+{
+  "object": "token",
+  "id": "tokn_test_5086xl7c9k5rnx35qba",
+  "livemode": false,
+  "location": "https://vault.omise.co/tokens/tokn_test_5086xl7c9k5rnx35qba",
+  "used": false,
+  "card": {
+    "object": "card",
+    "id": "card_test_5086xl7amxfysl0ac5l",
+    "livemode": false,
+    "country": "us",
+    "city": "Bangkok",
+    "postal_code": "10320",
+    "financing": "",
+    "last_digits": "4242",
+    "brand": "Visa",
+    "expiration_month": 10,
+    "expiration_year": 2018,
+    "fingerprint": "mKleiBfwp+PoJWB/ipngANuECUmRKjyxROwFW5IO7TM=",
+    "name": "Somchai Prasert",
+    "security_code_check": true,
+    "created": "2015-06-02T05:41:46Z"
+  },
+  "created": "2015-06-02T05:41:46Z"
+}
+
 ```
 
 Please note that it is important to leave `name` attribute in form `input`s to prevent the credit card data to be sent to your server. For more completed example, please refer to examples/index.html.
