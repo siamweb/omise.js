@@ -1,4 +1,4 @@
-(function(window, undefined) {
+(function(window, module, undefined) {
   "use strict";
 
   var Omise = {};
@@ -61,6 +61,10 @@
 
   // exports
 
+  if (typeof module.exports === "object") {
+    module.exports = Omise;
+  }
+
   window.Omise = Omise;
 
-})(window);
+})(window, typeof module === "object" ? module : {});
