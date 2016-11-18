@@ -73,26 +73,30 @@ If card authorization passed, `response.card.security_code_check` will be `true`
 The Token is in `response.id`, send this token to your backend for creating a charge using your secret key.
 
 ```js
-Omise.createToken("card", {
-  "name": document.getElementById("name").value,
-  "number": document.getElementById("number").value,
-  "expiration_month": document.getElementById("expiration_month").value,
-  "expiration_year": document.getElementById("expiration_year").value,
-  "security_code": document.getElementById("security_code").value
-}, function (statusCode, response) {
-  if (response.object == "token") {
-    if (typeof response.card != 'undefined' && response.card.security_code_check) {
-      // Card authorized
-      // Send the token (response.id) to your server for creating charge
-      // ...
-    else {
-      // Card authorization failed, display an error message for user
-      alert("Card authorization failure. Please check card information.")
-    });
+// Given that you have a form element with an id of "card" in your page.
+var card_form = document.getElementById("card");
+
+// Serialize the card into a valid card object.
+var card = {
+  "name": card_form.holder_name.value,
+  "number": card_form.number.value,
+  "expiration_month": card_form.expiration_month.value,
+  "expiration_year": card_form.expiration_year.value,
+  "security_code": card_form.security_code.value
+};
+
+Omise.createToken("card", card, function (statusCode, response) {
+  if (statusCode == 200) {
+    // Success: send back the TOKEN_ID to your server to create a charge.
+    // The TOKEN_ID can be found in `response.id`.
   } else {
-    // some error occured
+    // Error: display an error message. Note that `response.message` contains
+    // a preformatted error message. Also note that `response.code` will be
+    // "invalid_card" in case of validation error on the card.
+
+    // Example Error displaying
     alert(response.code+": "+response.message);
-  };
+  }
 });
 ```
 
