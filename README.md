@@ -136,3 +136,21 @@ Please note that it is important to leave `name` attribute in form `input`s to p
 ## How about validations?
 
 Omise.js doesn't validate credit card data before sending them to the API. But if the card isn't valid the API will send a message in the response containing the errors. If you need client side validation you can use something like the [jQuery Credit Card Validator](http://jquerycreditcardvalidator.com) library by [PawelDecowski](https://github.com/PawelDecowski).
+
+
+## DEVELOPMENT
+
+### Setup
+
+- `npm install`.
+
+### Run
+
+- `npm start`. (build)
+- `npm run dev-server`. (run server for development)
+
+### How to run test
+
+- `npm start`.
+- `python -m SimpleHTTPServer 8000`.
+- Then you can see test result at http://localhost:8000/test/browser.

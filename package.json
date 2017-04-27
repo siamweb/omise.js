@@ -1,0 +1,34 @@
+{
+  "name": "omise.js",
+  "version": "2.0.0",
+  "description": "Omise Browser SDK",
+  "main": "omise.js",
+  "scripts": {
+    "start": "webpack -w",
+    "dev-server": "webpack-dev-server --hot --colors --progress",
+    "dist": "rm -r ./dist; webpack -p --config=./webpack.production.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omise/omise.js.git"
+  },
+  "keywords": [
+    "omise",
+    "browser",
+    "sdk"
+  ],
+  "author": "Robin Clart <robin@omise.co>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/omise/omise.js/issues"
+  },
+  "homepage": "https://github.com/omise/omise.js#readme",
+  "devDependencies": {
+    "clean-webpack-plugin": "^0.1.11",
+    "source-map-loader": "^0.1.5",
+    "ts-loader": "^0.8.2",
+    "typescript": "^2.0.3",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.16.2"
+  }
+}

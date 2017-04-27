@@ -1,0 +1,5 @@
+#!/bin/sh
+
+rm src/omise.js
+rm src/omise/*.js
+rm src/omise/card/*.js
