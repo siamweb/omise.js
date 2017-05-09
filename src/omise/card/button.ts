@@ -128,16 +128,7 @@ export class Button {
       this.formNode.appendChild(inputOmiseToken);
     }
 
-    // create input for store `note` if it doesn't exists.
-    if ( ! this.formNode["omiseNote"]) {
-      const inputOmiseNote = document.createElement('input');
-      inputOmiseNote.setAttribute('type', 'hidden');
-      inputOmiseNote.setAttribute('name', 'omiseNote');
-      this.formNode.appendChild(inputOmiseNote);
-    }
-
     this.formNode["omiseToken"].value = token;
-    this.formNode["omiseNote"].value = note;
     this.formNode.submit();
   }
 
