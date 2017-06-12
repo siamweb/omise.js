@@ -18,7 +18,8 @@ interface Configuration {
   billingAddress:       string;
   cardBrands:           string;
   locale:               string;
-  autoCardNumberFormat: any;
+  autoCardNumberFormat: string;
+  expiryDateStyle:      string;
 }
 
 /**
@@ -42,7 +43,8 @@ export class Button {
     billingAddress:       "",
     cardBrands:           "visa mastercard",
     locale:               "en",
-    autoCardNumberFormat: true
+    autoCardNumberFormat: "yes",
+    expiryDateStyle:      "auto_format"
   };
 
   private node:     HTMLElement;
@@ -77,7 +79,8 @@ export class Button {
       billingAddress:       this.getNodeDataAttribute("billing-address"),
       cardBrands:           this.getNodeDataAttribute("card-brands"),
       locale:               this.getNodeDataAttribute("locale"),
-      autoCardNumberFormat: this.getNodeDataAttribute("auto-card-number-format")
+      autoCardNumberFormat: this.getNodeDataAttribute("auto-card-number-format"),
+      expiryDateStyle:      this.getNodeDataAttribute("expiry-date-style")
     });
 
     this.applyLocalConfiguration()
@@ -111,7 +114,8 @@ export class Button {
       billingAddress:       newConfiguration.billingAddress       || this.configuration.billingAddress,
       cardBrands:           newConfiguration.cardBrands           || this.configuration.cardBrands,
       locale:               newConfiguration.locale               || this.configuration.locale,
-      autoCardNumberFormat: newConfiguration.autoCardNumberFormat || this.configuration.autoCardNumberFormat
+      autoCardNumberFormat: newConfiguration.autoCardNumberFormat || this.configuration.autoCardNumberFormat,
+      expiryDateStyle:      newConfiguration.expiryDateStyle      || this.configuration.expiryDateStyle
     }
   }
 
