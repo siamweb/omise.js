@@ -60,3 +60,5 @@ jspm_packages/
 dist/
 *.tgz
 *.zip
+
+.DS_Store

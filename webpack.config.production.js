@@ -22,14 +22,13 @@ const config = {
     publicPath: '/',
   },
 
-  devtool: 'inline-source-map',
+  devtool: false,
 
   devServer: {
     inline: true,
     host: '0.0.0.0',
     port: 5001,
     historyApiFallback: true,
-    disableHostCheck: true,
   },
 
   resolve: {
@@ -55,7 +54,7 @@ const config = {
     new CleanPlugin('dist'),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('development'),
+        NODE_ENV: JSON.stringify('production'),
       },
     }),
   ]
